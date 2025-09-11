@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bring back project theme variables and styles after Tailwind layers are declared */
+@import url("../styles/globals.css");
+
+/* Global background color for the entire app */
+@layer base {
+  :root {
+    /* Soft dashboard-like background */
+    --page-bg: #f5f7fb;
+  }
+
+  html, body {
+    background-color: var(--page-bg);
+    min-height: 100%;
+  }
+}
+
