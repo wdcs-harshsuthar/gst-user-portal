@@ -9,6 +9,8 @@ export default function Home() {
     <LRAWebsiteClone
       onGetStarted={() => router.push("/instructions")}
       onDirectRegistration={(formType) => router.push(`/user?formType=${formType}`)}
+      onAdminAccess={() => router.push("/user?dashboard=true")}
+      onExistingGSTLogin={() => router.push("/login")}
     />
   );
 }

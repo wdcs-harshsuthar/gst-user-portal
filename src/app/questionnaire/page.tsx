@@ -7,7 +7,15 @@ export default function QuestionnairePage() {
   return (
     <RegistrationQuestionnaire
       onBack={() => router.push("/instructions")}
-      onComplete={() => router.push("/email-collection")}
+      onComplete={(result) => {
+        // Persist intended route so we can resume after verification
+        const params = new URLSearchParams();
+        if (result.route === 'sole-proprietorship') params.set('userType', 'SP-01');
+        else if (result.route === 'partnership-corporation') params.set('userType', 'RF-01');
+        else if (result.route === 'property-only') params.set('userType', 'RP-01');
+        const next = params.toString();
+        router.push(`/email-collection${next ? `?${next}` : ''}`);
+      }}
     />
   );
 }

@@ -1,48 +1,97 @@
-const image_0a8941b2087eed40bd6e51fc272ab77d922aeb28 = "/assets/0a8941b2087eed40bd6e51fc272ab77d922aeb28.png";
-const image_5bcfc9fdef80dc9f2e5064f92b5e1fc2fd9e4c08 = "/assets/5bcfc9fdef80dc9f2e5064f92b5e1fc2fd9e4c08.png";
+// Replaced figma:asset imports with external placeholder images
+const image_0a8941b2087eed40bd6e51fc272ab77d922aeb28 = "https://images.unsplash.com/photo-1542376750-0c7f1cb2a1b7?w=400&h=200&fit=crop";
+const image_5bcfc9fdef80dc9f2e5064f92b5e1fc2fd9e4c08 = "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&h=600&fit=crop";
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Input } from './ui/input';
 import { ArrowRight, Facebook, Twitter, Instagram, Youtube, Linkedin, Calendar, Users, FileText, Phone, Mail, MapPin, Download, ExternalLink, Play, Search, Building, CreditCard, Shield, BookOpen, HelpCircle, Clock, ChevronRight, FileCheck, Home } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme';
-const backgroundImage = "/assets/5cd39eaf77d3c90984af2fd3fb56203fac6536d2.png";
-const lraLogo = "/assets/f6688b6d1872374898f76be107e6c27de9426abd.png";
-const governmentHeroImage = "/assets/b17cc0ef243a38857ee9ec3cd629006b12dbc17f.png";
-// UserDashboard removed with login flow; landing shows registration CTA only
+const backgroundImage = "https://images.unsplash.com/photo-1529925568486-84f5d5fe1d34?w=1600&h=900&fit=crop";
+const lraLogo = "https://images.unsplash.com/photo-1518544801976-3e188e8777da?w=200&h=80&fit=crop";
+const governmentHeroImage = "https://images.unsplash.com/photo-1530034565861-1034f70d2d2d?w=1600&h=900&fit=crop";
+import GSTLogin from './GSTLogin';
+import UserDashboard from './UserDashboard';
 
 interface LRAWebsiteCloneProps {
   onGetStarted: () => void;
+  onAdminAccess: () => void;
   onDirectRegistration: (formType: 'IN-01' | 'RF-01') => void;
+  onExistingGSTLogin: () => void;
+  onDocumentVerifierAccess?: () => void;
+  onPropertyVerifierAccess?: () => void;
+  onApplicationVerifierAccess?: () => void;
+  onStaffPortalAccess?: () => void;
 }
 
 export default function LRAWebsiteClone({ 
   onGetStarted, 
-  onDirectRegistration
+  onAdminAccess, 
+  onDirectRegistration, 
+  onExistingGSTLogin,
+  onDocumentVerifierAccess,
+  onPropertyVerifierAccess,
+  onApplicationVerifierAccess,
+  onStaffPortalAccess
 }: LRAWebsiteCloneProps) {
-  const { getInlineStyles } = useTheme();
-  const [currentView, setCurrentView] = useState<'website'>('website');
+  const [currentView, setCurrentView] = useState<'website' | 'login' | 'dashboard'>('website');
+  const [loggedInUser, setLoggedInUser] = useState<string>('');
+  const [applications, setApplications] = useState<any[]>([]);
 
   // GST Portal button - no flow (disabled)
   const handleGSTPortalClick = () => {
     // No navigation - button disabled
   };
 
+  const handleLogin = (username: string) => {
+    setLoggedInUser(username);
+    setCurrentView('dashboard');
+  };
+
   const handleBackToWebsite = () => {
     setCurrentView('website');
+    setLoggedInUser('');
   };
 
   const handleStartNewApplication = () => {
     onGetStarted();
   };
 
-  // Dashboard handlers removed with dashboard
+  const handleDeleteApplication = (applicationReference: string) => {
+    setApplications(prev => prev.filter(app => app.applicationReference !== applicationReference));
+  };
 
-  // Single landing view only
+  const handleUploadReceipt = (applicationReference: string, receiptFile: File) => {
+    setApplications(prev => prev.map(app => 
+      app.applicationReference === applicationReference 
+        ? { ...app, status: 'under-review', receiptUploaded: true }
+        : app
+    ));
+  };
+
+  // Show different views based on current state
+  if (currentView === 'login') {
+    return (
+      <GSTLogin 
+        onLogin={handleLogin}
+        onBack={handleBackToWebsite}
+      />
+    );
+  }
+
+  if (currentView === 'dashboard') {
+    return (
+      <UserDashboard 
+        applications={applications}
+        onStartNewApplication={handleStartNewApplication}
+        onDeleteApplication={handleDeleteApplication}
+        onUploadReceipt={handleUploadReceipt}
+      />
+    );
+  }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white">
         {/* Top Red Bar */}
@@ -64,20 +113,25 @@ export default function LRAWebsiteClone({
                   <Phone className="h-4 w-4" />
                   <span>+231 (0800) 3850</span>
                 </div>
-                <Button 
-                  className="px-6 py-2 font-semibold uppercase tracking-wide"
-                  style={{ backgroundColor: 'white', color: getInlineStyles().textPrimary.color }}
-                  onClick={() => window.location.href = '/instructions'}
-                >
-                  Register
+                <Button className="bg-[rgba(231,200,0,1)] hover:bg-yellow-600 text-white px-6 py-2" onClick={onExistingGSTLogin}>
+                  Existing GST Login
                 </Button>
-                {/* <Button 
-                  className="px-6 py-2 font-semibold uppercase tracking-wide"
-                  style={{ backgroundColor: 'white', color: getInlineStyles().textPrimary.color }}
-                  onClick={onExistingGSTLogin}
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={onAdminAccess}
+                  className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
                 >
-                  Login
-                </Button> */}
+                  Admin
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={onStaffPortalAccess}
+                  className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                >
+                  Staff Portal
+                </Button>
               </div>
             </div>
           </div>
@@ -237,7 +291,6 @@ export default function LRAWebsiteClone({
           </div>
         </div>
       </section>
-
 
       {/* Professional Services Section */}
       <section className="relative overflow-hidden">

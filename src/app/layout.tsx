@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { globalErrorHandler } from "../lib/notifications";
-import ClientProviders from "../components/ClientProviders";
 
 export const metadata: Metadata = {
   title: "GST Registration Portal",
@@ -21,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientProviders>
-          {children}
-        </ClientProviders>
+        {children}
       </body>
     </html>
   );

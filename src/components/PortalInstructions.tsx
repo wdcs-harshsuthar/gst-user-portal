@@ -13,7 +13,7 @@ interface PortalInstructionsProps {
 export default function PortalInstructions({ onConfirm, onBack, onStartQuestionnaire }: PortalInstructionsProps) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container-full">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -24,9 +24,9 @@ export default function PortalInstructions({ onConfirm, onBack, onStartQuestionn
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="full-width space-y-8 px-[0px] pt-[10px] pr-[0px] pb-[120px] pl-[0px]">
           {/* Process Steps */}
-          <div className="space-y-6">
+          <div className="full-width space-y-6">
             <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
               Registration Process Overview
             </h2>
@@ -179,7 +179,7 @@ export default function PortalInstructions({ onConfirm, onBack, onStartQuestionn
           </div>
 
           {/* Footer */}
-          <div className="text-center pt-8 mt-16 border-t border-gray-200">
+          <div className="text-center pt-[20px] border-t border-gray-200 mr-[0px] mb-[0px] ml-[0px] mt-[100px] pr-[0px] pb-[0px] pl-[0px]">
             <p className="text-xs text-gray-500">
               Powered by Liberia Revenue Authority (LRA) • Secure • Reliable • Official
             </p>

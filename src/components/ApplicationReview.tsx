@@ -30,7 +30,7 @@ import {
   Upload,
   Printer
 } from 'lucide-react';
-import { RegistrationData } from '../UserApp';
+import { RegistrationData } from './UserApp';
 
 interface ApplicationReviewProps {
   registrationData: RegistrationData;
@@ -645,12 +645,7 @@ IMPORTANT NOTES
                 <span>L${fees.latePenalty.toFixed(2)}</span>
               </div>
             )}
-            {fees.processingFee > 0 && (
-              <div className="flex justify-between text-sm text-gray-600">
-                <span>Processing Fee</span>
-                <span>L${fees.processingFee.toFixed(2)}</span>
-              </div>
-            )}
+
             <Separator />
             <div className="flex justify-between font-medium text-lg">
               <span>Total Amount</span>

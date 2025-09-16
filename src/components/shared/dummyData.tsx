@@ -36,6 +36,15 @@ export const DUMMY_INDIVIDUAL_DATA = {
   country: 'Liberia',
   poBox: 'P.O. Box 1234',
   isResident: true,
+  mailingAddress: {
+    streetAddress: '',
+    landmark: '',
+    city: '',
+    district: '',
+    county: '',
+    country: '',
+    poBox: ''
+  },
   annualTurnover: '50000',
   fiscalYearStart: '2024-01-01',
   fiscalYearEnd: '2024-12-31',
@@ -108,38 +117,56 @@ export const DUMMY_BUSINESS_DATA = {
 };
 
 export const DUMMY_SOLE_PROPRIETORSHIP_DATA = {
-  oldTin: 'TIN-2019-4567',
-  registeredName: 'Mama Kema\'s General Store',
-  tradeName: 'Mama Kema Store',
-  registrationDate: '2019-08-20',
-  businessRegNumber: 'SP-2019-3456',
-  nassCorpNumber: '',
-  taxStartDate: '2019-09-01',
-  taxCloseDate: '',
-  contactPersonName: 'Kema Varney',
-  contactPersonPhone: '+231-555-0300',
-  contactPersonEmail: 'kema.varney@email.lr',
-  streetAddress: 'Red Light Market, Paynesville',
-  landmark: 'Section 4, Stall 23',
-  city: 'Paynesville',
-  district: 'Paynesville',
+  // Enterprise Name
+  enterpriseName: 'Mama Kema\'s General Store',
+  
+  // Enterprise Address
   county: 'Montserrado',
-  buildingType: 'commercial',
-  paysRent: true,
-  rentAmount: '300',
+  administrativeDistrict: 'Paynesville District',
+  taxDistrict: 'Greater Monrovia',
+  cityVillageTown: 'Paynesville',
+  majorLandmark: 'Red Light Market',
+  streetRoad: 'Robertsfield Highway',
+  buildingUnit: 'Section 4, Stall 23',
+  poBox: 'P.O. Box 5432',
+  
+  // Owner (required if Part A is not completed)
+  ownerTin: 'TIN-2019-4567',
+  ownerName: 'Kema Varney',
+  ownerPhone: '+231-555-0300',
+  ownerEmail: 'kema.varney@email.lr',
+  
+  // Contact Person (if different from owner)
+  contactTin: '',
+  contactName: '',
+  contactPhone: '',
+  contactEmail: '',
+  
+  // Business Details
+  businessCommencementDate: '2019-08-20',
   numberOfEmployees: '3',
+  fiscalYearEndMonth: 'December',
+  estimatedAnnualTurnover: '25000',
+  paysRent: 'yes',
+  
+  // Business Activities
+  isicCode: '',
   businessActivityDescription: 'Retail sale of household goods, groceries, beverages, and basic consumer items. Also provides mobile phone credit top-up services.',
-  mainActivity: 'Retail General Store',
-  businessLicenses: [
-    { 
-      number: 'RL-2019-234', 
-      type: 'Retail License', 
-      startDate: '2019-09-01', 
-      endDate: '2024-08-31' 
-    }
-  ],
+  isMainActivity: true,
+  
+  // Bank Account
+  declaresBankAccount: 'yes',
+  accountNumber: '0123456789',
+  accountHolderName: 'Kema Varney',
   bankName: 'United Bank for Africa',
-  accountNumber: '0123456789'
+  branchName: 'Paynesville Branch',
+  
+  // Certification
+  certFirstName: 'Kema',
+  certMiddleName: '',
+  certLastName: 'Varney',
+  certSignature: 'Kema Varney',
+  certDate: new Date().toISOString().split('T')[0]
 };
 
 export const DUMMY_OWNERS_SHAREHOLDERS_DATA = {
@@ -316,6 +343,15 @@ export const DUMMY_EXISTING_USER_DATA = {
   country: 'Liberia',
   poBox: 'P.O. Box 3579',
   isResident: true,
+  mailingAddress: {
+    streetAddress: '',
+    landmark: '',
+    city: '',
+    district: '',
+    county: '',
+    country: '',
+    poBox: ''
+  },
   annualTurnover: '25000',
   fiscalYearStart: '2024-01-01',
   fiscalYearEnd: '2024-12-31',
@@ -557,4 +593,99 @@ export const SAMPLE_LIBERIAN_LOCATIONS = {
     'Near Crown Hill Catholic Church',
     'Near Red Light Market'
   ]
+};
+
+export const DUMMY_BRANCH_DATA = {
+  // 1. Organization Detail
+  parentEntityName: 'West Africa Trading Corporation',
+  parentTin: 'TIN-2021-5678',
+  
+  // Branches
+  branches: [
+    {
+      // 2. Branch Detail
+      branchName: 'Paynesville Branch',
+      dateOpened: '2023-06-15',
+      
+      // 3. Branch Address
+      country: 'Liberia',
+      county: 'Montserrado',
+      district: 'Greater Monrovia',
+      taxDistrict: 'Paynesville Tax District',
+      cityVillageTown: 'Paynesville',
+      majorLandmark: 'Red Light Market',
+      streetRoad: 'Robertsfield Highway',
+      buildingUnit: 'Section 3, Building A',
+      poBox: 'P.O. Box 1234',
+      
+      // 4. Contact Details
+      contactNumber: '+231-555-0701',
+      alternateTelephone: '+231-555-0702',
+      email: 'paynesville@watc.lr',
+      alternateEmail: 'paynesville.alt@watc.lr',
+      managerName: 'Alice Pewee',
+      
+      // 5. Certification
+      firstName: 'Alice',
+      middleName: 'Nyemah',
+      lastName: 'Pewee',
+      position: 'Branch Manager',
+      signature: 'Alice Nyemah Pewee',
+      signatureDate: new Date().toISOString().split('T')[0],
+      
+      // Legacy fields (for backward compatibility)
+      branchAddress: 'Red Light Market Area, Section 3, Paynesville',
+      natureOfBusiness: 'Retail sales of imported goods, household items, and electronic devices',
+      managerIdNumber: 'NID-2022-5678',
+      managerIdType: 'National ID',
+      employeeCount: '8',
+      localBusinessLicenses: 'Paynesville City Business License, Retail Trade Permit',
+      licenseNumbers: 'PBL-2023-0156, RTP-2023-0089'
+    },
+    {
+      // 2. Branch Detail
+      branchName: 'Gbarnga Branch',
+      dateOpened: '2023-09-01',
+      
+      // 3. Branch Address
+      country: 'Liberia',
+      county: 'Bong',
+      district: 'Fuamah',
+      taxDistrict: 'Gbarnga Tax District',
+      cityVillageTown: 'Gbarnga',
+      majorLandmark: 'Cuttington University',
+      streetRoad: 'University Road',
+      buildingUnit: 'Commercial Complex, Unit 5',
+      poBox: 'P.O. Box 5678',
+      
+      // 4. Contact Details
+      contactNumber: '+231-555-0702',
+      alternateTelephone: '+231-555-0703',
+      email: 'gbarnga@watc.lr',
+      alternateEmail: 'gbarnga.alt@watc.lr',
+      managerName: 'John Karnley',
+      
+      // 5. Certification
+      firstName: 'John',
+      middleName: 'Moses',
+      lastName: 'Karnley',
+      position: 'Regional Manager',
+      signature: 'John Moses Karnley',
+      signatureDate: new Date().toISOString().split('T')[0],
+      
+      // Legacy fields (for backward compatibility)
+      branchAddress: 'Central Gbarnga, near Cuttington University',
+      natureOfBusiness: 'Wholesale distribution and retail sales of consumer goods',
+      managerIdNumber: 'LR2023456789',
+      managerIdType: 'Passport',
+      employeeCount: '12',
+      localBusinessLicenses: 'Bong County Business Permit, Wholesale Distribution License',
+      licenseNumbers: 'BCP-2023-0234, WDL-2023-0067'
+    }
+  ],
+  
+  // Declaration
+  declarationConfirmed: true,
+  signatoryName: 'Moses Tarnue',
+  signatoryDate: new Date().toISOString().split('T')[0]
 };

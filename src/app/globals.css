@@ -1,15 +1,49 @@
+@import url("../styles/globals.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Bring back project theme variables and styles after Tailwind layers are declared */
-@import url("../styles/globals.css");
 
 /* Global background color for the entire app */
 @layer base {
   :root {
     /* Soft dashboard-like background */
     --page-bg: #f5f7fb;
+
+    /* Global theme tokens (HSL values for Tailwind CSS variables) */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    /* Primary brand color: blue */
+    /* #2563eb (Tailwind blue-600) -> hsl(217 91% 60%) */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 60%;
+
+    /* Sidebar theme aligned to primary */
+    --sidebar: 222.2 84% 97%;
+    --sidebar-foreground: 222.2 47.4% 11.2%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 92% 95%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 217 91% 60%;
   }
 
   html, body {

@@ -61,7 +61,7 @@ export default function OwnersShareholders({ initialData, onComplete, onBack }: 
     if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
 
     // Validate at least one owner with complete information
-    const validOwners = formData.owners.filter((owner: any) => 
+    const validOwners = formData.owners.filter((owner: Owner) => 
       owner.fullName.trim() && owner.numberOfShares.trim() && owner.percentageOfShares.trim()
     );
     if (validOwners.length === 0) {
@@ -69,7 +69,7 @@ export default function OwnersShareholders({ initialData, onComplete, onBack }: 
     }
 
     // Validate percentage totals
-    const totalPercentage = formData.owners.reduce((sum: number, owner: any) => {
+    const totalPercentage = formData.owners.reduce((sum, owner: Owner) => {
       const percentage = parseFloat(owner.percentageOfShares) || 0;
       return sum + percentage;
     }, 0);
@@ -90,20 +90,20 @@ export default function OwnersShareholders({ initialData, onComplete, onBack }: 
   };
 
   const updateFormData = (field: string, value: any) => {
-    setFormData((prev: any) => ({ ...prev, [field]: value }));
+    setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors((prev: Record<string, string>) => ({ ...prev, [field]: '' }));
+      setErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
 
   const fillSampleData = () => {
-    setFormData((prev: any) => ({ ...prev, ...DUMMY_OWNERS_SHAREHOLDERS_DATA }));
+    setFormData(prev => ({ ...prev, ...DUMMY_OWNERS_SHAREHOLDERS_DATA }));
     setErrors({});
   };
 
   const addOwner = () => {
     if (formData.owners.length < 10) {
-      setFormData((prev: any) => ({
+      setFormData(prev => ({
         ...prev,
         owners: [...prev.owners, { tin: '', fullName: '', startDate: '', endDate: '', numberOfShares: '', percentageOfShares: '' }]
       }));
@@ -112,36 +112,36 @@ export default function OwnersShareholders({ initialData, onComplete, onBack }: 
 
   const removeOwner = (index: number) => {
     if (formData.owners.length > 1) {
-      setFormData((prev: any) => ({
+      setFormData(prev => ({
         ...prev,
-        owners: prev.owners.filter((_: any, i: number) => i !== index)
+        owners: prev.owners.filter((_, i) => i !== index)
       }));
     }
   };
 
   const updateOwner = (index: number, field: keyof Owner, value: string) => {
-    setFormData((prev: any) => ({
+    setFormData(prev => ({
       ...prev,
-      owners: prev.owners.map((owner: any, i: number) => 
+      owners: prev.owners.map((owner, i) => 
         i === index ? { ...owner, [field]: value } : owner
       )
     }));
     
     // Clear errors when updating owners
     if (errors.owners || errors.percentage) {
-      setErrors((prev: Record<string, string>) => ({ ...prev, owners: '', percentage: '' }));
+      setErrors(prev => ({ ...prev, owners: '', percentage: '' }));
     }
   };
 
   const getTotalPercentage = () => {
-    return formData.owners.reduce((sum: number, owner: any) => {
+    return formData.owners.reduce((sum, owner: Owner) => {
       const percentage = parseFloat(owner.percentageOfShares) || 0;
       return sum + percentage;
     }, 0);
   };
 
   const getTotalShares = () => {
-    return formData.owners.reduce((sum: number, owner: any) => {
+    return formData.owners.reduce((sum, owner: Owner) => {
       const shares = parseInt(owner.numberOfShares) || 0;
       return sum + shares;
     }, 0);
@@ -398,7 +398,7 @@ export default function OwnersShareholders({ initialData, onComplete, onBack }: 
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {formData.owners.map((owner: any, index: number) => (
+                {formData.owners.map((owner, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Input

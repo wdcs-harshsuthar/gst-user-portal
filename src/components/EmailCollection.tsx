@@ -5,7 +5,6 @@ import { Label } from './ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Mail, ArrowRight, ArrowLeft, Shield, CheckCircle, Home, Phone } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme';
 
 interface EmailCollectionProps {
   onSubmit: (email: string) => void;
@@ -18,7 +17,6 @@ export default function EmailCollection({ onSubmit, onBack, onBackToHome }: Emai
   const [mobileNumber, setMobileNumber] = useState('');
   const [errors, setErrors] = useState<{ email?: string; mobileNumber?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { getInlineStyles } = useTheme();
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -69,11 +67,8 @@ export default function EmailCollection({ onSubmit, onBack, onBackToHome }: Emai
       <div className="container-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div 
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
-            style={{ backgroundColor: 'hsl(230 100% 60% / 0.1)' }}
-          >
-            <Mail className="h-8 w-8" style={{ color: getInlineStyles().textPrimary.color }} />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+            <Mail className="h-8 w-8 text-primary" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Email Verification Required
@@ -87,13 +82,10 @@ export default function EmailCollection({ onSubmit, onBack, onBackToHome }: Emai
         <div className="flex items-center justify-center mb-8">
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
-              <div 
-                className="w-8 h-8 text-white rounded-full flex items-center justify-center text-sm font-semibold"
-                style={{ backgroundColor: getInlineStyles().primary.backgroundColor }}
-              >
+              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">
                 1
               </div>
-              <span className="ml-2 text-sm font-medium" style={{ color: getInlineStyles().textPrimary.color }}>Email</span>
+              <span className="ml-2 text-sm font-medium text-primary">Email</span>
             </div>
             <div className="w-12 h-0.5 bg-gray-300"></div>
             <div className="flex items-center">
@@ -110,7 +102,7 @@ export default function EmailCollection({ onSubmit, onBack, onBackToHome }: Emai
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Mail className="h-6 w-6" style={{ color: getInlineStyles().textPrimary.color }} />
+                <Mail className="h-6 w-6 text-primary" />
                 Email Address Information
               </CardTitle>
             </CardHeader>
@@ -178,11 +170,7 @@ export default function EmailCollection({ onSubmit, onBack, onBackToHome }: Emai
                 {/* Submit Button */}
                 <Button 
                   type="submit" 
-                  className="w-full py-3"
-                  style={{ 
-                    backgroundColor: getInlineStyles().primary.backgroundColor,
-                    color: getInlineStyles().primary.color
-                  }}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3"
                   disabled={isSubmitting || !email || !mobileNumber || !validateEmail(email) || !validateMobileNumber(mobileNumber)}
                 >
                   {isSubmitting ? (
